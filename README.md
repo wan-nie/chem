@@ -1,7 +1,7 @@
 # 计算化学软件输出文件的整理脚本
 
-# gauss
-*用于[Gaussian](https://gaussian.com/)的log文件能量统计和坐标生成的[python](https://www.python.org/)脚本*
+## gauss
+&nbsp&nbsp*用于[Gaussian](https://gaussian.com/)的log文件能量统计和坐标生成的[python](https://www.python.org/)脚本*
 
 **getEnergy.py**
 
@@ -10,6 +10,6 @@
 - 如果选择统计电荷和自旋，当前目录下也会得到Charges.csv文件
 
 
-**getCoordinates.py**
+&nbsp&nbsp**getCoordinates.py**
 
-- 运行后会得到coordinates.xyz文件
+&nbsp&nbsp- 运行后会得到coordinates.xyz文件
