@@ -1,5 +1,4 @@
 import os
-import sys
 import re
 
 def find_charges_spin(file, line_ls):
@@ -44,7 +43,7 @@ def find_charges_spin(file, line_ls):
         # 取total的npa电荷
         total_npa_index = npa_indexes[0] + interval_npa 
         for line in line_ls[total_npa_index : total_npa_index + interval_atom]:
-            npa_charges.append(line.split()[2])
+            npa_charges.append(line.split()[2])           
         # 计算npa_spin
         # 1. 取alpha的电子
         alpha_npa_index = npa_indexes[1] + interval_npa
@@ -92,19 +91,16 @@ def find_charge_multiplicity(line_ls, charge, multiplicity):
     return charge, multiplicity
 
 def main():
-    while True:
-        get_charges = input("Should charges and spin also be exported (y/n)? Input q to quit.\n")
-        if get_charges == 'y':
-            # 统计电荷前删除当前目录下的Charges.csv
-            if os.path.exists('Charges.csv'):
-                os.remove('Charges.csv')
-            break
-        elif get_charges == 'n':
-            break
-        elif get_charges == 'q':
-            sys.exit()
-        else:
-            print("Please input y/n or q.")
+    # 获得用户输入get_charges，并做出处理
+    get_charges = input("Should charges and spin also be exported (y/n)? Input q to quit.\n")
+    while get_charges not in ['y', 'n', 'q']:
+        get_charges = input("Please input y/n or q.\n")
+    if get_charges == 'y':
+        # 统计电荷前删除当前目录下的Charges.csv
+        if os.path.exists('Charges.csv'):
+            os.remove('Charges.csv')
+    elif get_charges == 'q':
+        return 0, 0  # (energy, charges)
 
     with open('Energy.csv', 'w') as result:
         # 写入表头
@@ -178,9 +174,20 @@ def main():
             result.write("{},{},{},{},{},{},{},{}\n".format(file, isNormal, method_freq, imaginary,
                                                          thermalCorrectionToGibbs, charge_multiplicity,
                                                          method_scf, scf))
+    if get_charges == 'y':
+        return 1, 1  # (energy, charges)
+    else:
+        return 1, 0
 
 if __name__ == '__main__':
-    main()
-    print("Normal Termination")
-
+    try:
+        status = main()
+        if status == (0, 0):
+            print("Quit")
+        elif status == (1, 1):
+            print("Energy.csv and Charges.csv have been exported")
+        else:
+            print("Energy.csv has been exported")
+    except:
+        print("Warning! Something went wrong")
 
