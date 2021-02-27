@@ -12,4 +12,8 @@
   - 运行后会得到coordinates.xyz文件  
 
 ## adf
-*用于[ADF](https://www.scm.com/product/adf/）的logfile文件坐标生成的[python](https://www.python.org/)脚本*
+*用于[ADF](https://www.scm.com/product/adf/)的logfile文件坐标生成的[python](https://www.python.org/)脚本*  
+
+* **getCoordinates_ADF.py**
+* 运行后会得到coordinates_ADF.xyz文件 
+
