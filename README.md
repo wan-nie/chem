@@ -10,3 +10,6 @@
 
 - **getCoordinates.py**  
   - 运行后会得到coordinates.xyz文件  
+
+## adf
+*用于[ADF](https://www.scm.com/product/adf/）的logfile文件坐标生成的[python](https://www.python.org/)脚本*
