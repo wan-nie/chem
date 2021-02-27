@@ -10,7 +10,6 @@ def write(numOfAtom, file_name, coord_ls, xyz_name):
 		xyz.write('\n')
 
 def main():
-	interval = 2 # Coordinates和坐标数据间的行差
 	xyz_name = 'coordinates_ADF.xyz'
 
 	# 删除冗余的xyz文件
@@ -31,6 +30,7 @@ def main():
 			for i, line in enumerate(line_ls):
 				if 'Coordinates' in line:
 					coord_index_ls.append(i)
+			interval = 2 # 有Coordinates关键字的行和坐标数据间的行差
 			last_coord_index = coord_index_ls[-1] + interval
 		    # 取出所有的坐标到coordinates
 			for line in line_ls[last_coord_index :]:
@@ -53,5 +53,6 @@ if __name__ == '__main__':
 		print("%s has been exported" % file)
 	except:
 		print("Warning! Something went wrong")
+
 
 
