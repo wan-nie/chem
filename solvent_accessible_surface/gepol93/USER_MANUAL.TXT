@@ -1,0 +1,371 @@
+C       =============================================================
+C       GEPOL93 (GEometria POLihedro,1993)
+C       Version 8
+C       Burjassot September 17, 1993.
+C       =============================================================
+C*** Written by
+C
+C       J.L. Pascual-Ahuir, E. Silla and I. Tunon
+C       Departamento de Quimica Fisica.
+C       Facultad de Quimica.
+C       Universidad de Valencia.
+C       C/Dr.Moliner 50.
+C       Burjassot (Valencia) 46100
+C       SPAIN
+C       
+C       Phone number: (34)-6-3864332
+C       FAX   number: (34)-6-3864564
+C       EMAIL   PASCUAL@EVALUN11
+C                 SILLA@EVALUN11
+C
+C*** Grants
+C
+C       A grant has been provided by the Spanish Direccion General de 
+C       Investigacion Cientifica Y Tecnica (DGICYT), project PS 90-0264.
+C
+C*** OLD VERSIONS
+C
+C     - GEPOL87 by J.L. Pascual-Ahuir, E. Silla, J. Tomasi and R. Bonacorsi
+C     - GEPOL92 by J.L. Pascual-Ahuir, E. Silla and I. Tunon.
+C 
+C*** Modifications with respect to GEPOL92
+C     The modifications affect mainly the computation of the Solvent-
+C     Excluding Surface (ESURF). There are important changes in the 
+C     algorithm of the computation of the ESURF. The set of parameters
+C     used for that computation is different from the old versions.
+C     The computation of the surfaces of large systems as proteins,
+C     with the old versions, takes a lot of time. With GEPOL93 this 
+C     problem has been solved. For a clear description of the new
+C     algorithm see reference D.
+C
+C*** References 
+C   (Basic references)
+C
+C    A- J.L.Pascual-Ahuir, E.Silla, J.Tomasi y R.Bonacorsi.
+C       Electrostatic Interaction of Solute with a Continuum.
+C       Improved Description of the Cavity and of the Surface Cavity
+C       Bound Charge Distribution.
+C       J. Comput. Chem.,8(1987)778-787
+C
+C    B- J. L. Pascual-Ahuir and E. Silla
+C       GEPOL: An improved description of molecular surfaces. I. Building
+C       the spherical surface set.
+C       J. Comput. Chem.,11(1990)1047-1060
+C
+C    C- E. Silla, I. Tunon and J. L. Pascual-Ahuir
+C       GEPOL: An improved description of molecular surfaces. II. Computing
+C       the molecular area and volume.
+C       J. Comput. Chem.,12(1991)1077-1088
+C
+C    D- J. L. Pascual-Ahuir, I Tunon and E. Silla
+C       GEPOL: An improved description of molecular surfaces. III. A New
+C       algorithm for the computation of the Solvent-Excluding Surface.
+C       (explain the algorithm used in GEPOL93)
+C       To be submited to J. Comput. Chem. during 1993
+C
+C   (References with examples of use)
+C
+C    
+C    E- J. L. Pascual-Ahuir and E. Silla
+C       GEPOL: A method to calculate the envelope surface. Computation
+C       of changes in conformational area and volume of n-octanol
+C       Quantum Chemistry - Basics Aspects, Actual Trends. Ed. R. Carbo.
+C       Studies in Physical and Theoretical Chemistry,62(1989)597-603
+C       Elsevier Science Publishers B. V., Amsterdam 1989. p
+C 
+C    F- J. L. Pascual-Ahuir, J. Andres and E. Silla.
+C       Calculations of the relative basicities of methylamines in 
+C       solution
+C       Chem. Phys. Lett., 169(1990)297-300
+C
+C    G- E. Silla, F. Villar, O. Nilsson, J.L. Pascual-Ahuir and O. Tapia.
+C       Molecular volumes and surfaces of biomacromolecules via GEPOL: A
+C       fast and efficient algorithm
+C       J. Mol. Graphics,8(1990)168-172
+C
+C    H- F. M. Floris, J. Tomasi, J.L. Pascual-Ahuir
+C       Dispersion and repulsion contributions to the solvation energy:
+C       Refinements to a simple computational model in the continuum
+C       Approximation.
+C       J. Comput. Chem.,12(1991)784-791
+C
+C    I- I. Tunon, E. Silla and J. L. Pascual-Ahuir
+C       Molecular surface area and hydrophobic effect
+C       Protein  Eng.,5(1992)715-716
+C
+C    J- I. Tunon, E. Silla and J. L. Pascual-Ahuir
+C       Continuum-uniform approach calculations of the solubility
+C       of hydrocarbons in water
+C       Chem. Phys. Lett., 203(1993)289-294
+C
+C    K- I. Tunon, E. Silla and J. L. Pascual-Ahuir
+C       Theoretical study of the inversion of the alcohol acidity 
+C       scale in aqueous solution. Toward an interpretation of the
+C       acid-base behavior of organic compounds in solution.
+C       J. Am. Chem. Soc. 115(1993)2226-2230 
+C
+C*** Aim
+C
+C       This program computes the surface for a molecule as a distribution
+C       of points and calculates its area and the volume enclosed. Each
+C       point represents a piece of the surface named a tesserae. 
+C
+C       Three kinds of envelope surfaces can be computed:
+C
+C         - THE VAN DER WAALS MOLECULAR SURFACE. This is the envelope
+C       surface of a set of intersecting spheres with given atomic radii 
+C       centered on the nuclei of selected atoms of the molecule.
+C
+C         - THE ACCESSIBLE MOLECULAR SURFACE. This was defined by
+C       B.Lee and F.M.Richards (J.MOL.BIOL.55(1971)379-400). It is the
+C       surface defined by the center of the solvent, considered as a 
+C       rigid sphere (probe sphere), when it rolls around the van der 
+C       Waals surface. 
+C
+C         - THE SOLVENT-EXCLUDING SURFACE. This is the surface envelope 
+C       of the volume excluded to the solvent, considered as a rigid 
+C       sphere (probe sphere), when it rolls around the van der Waals 
+C       surface. It was defined initially by F. M. Richards and named 
+C       as the MOLECULAR SURFACE (Ann. Rev. Biophys. Bioeng.,6 (1977)
+C       151-176) 
+C       GEPOL constructs the SOLVENT-EXCLUDING SURFACE creating a 
+C       set of new spheres located among the original spheres defined in 
+C       the input geometry.
+C        
+C        
+C*** Computacional especifications
+C
+C       This program is written in FORTRAN 77 and has been run on 
+C        VAX (VMS)
+C        SILICON GRAPHICS (UNIX)
+C        IBM RISC (AIX)       
+C
+C*** Input
+C       
+C       GENERAL INPUT (FOR005)
+C       ----------------------
+C       This file will have the commands and parameters that control 
+C       the program.
+C       Every record is a command and it is divided in two fields:The first
+C       five characters of the field form a KEYWORD.The second field is 
+C       reserved for parameters.
+C       You do not need to put the commands in a given order.
+C       There are two types of KEYWORD depending on whether a parameter 
+C       is needed in the second field of the record or not. Those that need
+C       a parameter have the symbol equal(=) included in the KEYWORD.
+C       Every command has a default defined within the program. The default
+C       values for the parameters are selected to achieve a good compromise
+C       between time and accuracy.
+C 
+C       Each KEYWORD is explained, as follows:
+C 
+C  
+C  TITL=     This Keyword denotes that the title of the calculation goes 
+C            into the second field of the record. You may use up to 20 
+C            records as titles, but each record should start with the 
+C            keyword TITL=.If you do not use this command the program 
+C            will provide a title.
+C
+C  WSURF     The van der Waals molecular surface is calculated.
+C
+C  ASURF     The accessible molecular surface is calculated.
+C
+C  ESURF     The Solvent-Excluding Surface (Molecular Surface) is 
+C            calculated.
+C
+C            ( if you do not put in any of the latter keywords
+C              the program will calculate the van der Waals surface)
+C
+C  NDIV=     In the second field goes an integer that can take values 
+C            between 1 and 5. It specifies the division level for the 
+C            triangles on the surface. The accuracy of the calculation
+C            improves as NDIV rises. The default for this command is 3.
+C
+C  OFAC=     This parameter will be used only if ESURF is computed.
+C            In the second field goes a real number that can take values 
+C            between 0.0 and 1.0. This parameter is the Overlapping FACtor.
+C            The accuracy improves as the OFAC value increases.The default
+C            value is 0.8
+C
+C  RMIN=     This parameter will be used only if ESURF is computed.
+C            In the second field goes a real number that can take values 
+C            larger than 0.0. This parameter is the radius of the smallest
+C            sphere that can be created.The accuracy improves as the RMIN
+C            value decreases.The default value is 0.50.
+C
+C            (OFAC,RMIN  are the parameters that control the creation
+C             of new spheres)
+C 
+C  RSOL=     This parameter will be used only if ASURF or ESURF is computed.
+C            In the second field goes a real number. It is the probe or 
+C            solvent radius. The default value is 1.4
+C
+C  COOF=     In the second field goes the name of the file with the 
+C            coordinates and radii.
+C
+C  SPHF=     The area of every sphere will be printed in the file
+C            indicated in the second field. As default, the area of every
+C            sphere will not be printed. For more information see later.
+C            
+C  VECF=     The coordinates of the points, the components of the vectors 
+C            perpendicular to the surface and the areas of every tesserae, 
+C            will be printed in the file indicated in the second field. 
+C            As default the information will not be printed.The file
+C            is written in binary format.
+C  
+C  DVEC=     Only if you have selected VECF=. The number in the second 
+C            field gives the direction of the vectors and their module. 
+C            If the number is positive they will go outward and if it 
+C            is negative inward. The module of the vectors will be equal 
+C            to the absolutevalue of the number. As default the value
+C            is +1.
+C
+C  DISF=     This option prints, in the file indicated in the second field,
+C            information needed for a program, developed in our laboratory,
+C            named HELIOS, that displays the surfaces. As default the 
+C            information is not printed. The file is written in binary 
+C            format.
+C
+C  REDUC     Only if  SPHF= has been selected. The use of this command
+C            will REDUCe the printing, giving only information about the
+C            initial spheres. This option only has sense when the ESURF 
+C            is computed.
+C
+C  ASSG1     Only if ESURF has been selected. This command assigns 
+C            the tesserae of the new spheres to the initial ones.
+C            Thus the value of the area of each initial sphere will be 
+C            the sum of the area of the tesserae of itself plus the area
+C            of the tesserae, from the new spheres, assigned to it. 
+C            A tesserae is assigned to the sphere whose surface is closest
+C            to the tesserae.
+C            As DEFAULT no assignation is made.
+C
+C  LPRIN     This command produce a longer printing in the general output.
+C            As default a shorter printing is made
+C
+C
+C       COORDINATES FILE   
+C       ----------------
+C
+C       The name of this file has been given in the general input after
+C       the keyword COOF=. The format of the file is given next:
+C
+C     -- TITLE
+C        You can put in as many records of titles as you want, but each 
+C        record should start with the symbol *.
+C    
+C     -- NATOM (I8)
+C        Number of atoms
+C     
+C     -- One record per atom (4F10.5,A33)
+C        The Variables in each record are:
+C      
+C           XE        Coordinate X of the atom.
+C           YE        Coordinate Y of the atom.
+C           ZE        Coordinate Z of the atom.
+C           RE        Radius of the sphere centered on the atom.
+C           LABEL     Atom number, atom name, residue number... This 
+C                     variable is not used in GEPOL93, it is only read to
+C                     be written in the file SPHF= to identify each atom.
+C         
+C         OBSERVATIONS!!.
+C         - With GEPOL93 we provide a program named PGEPOL that prepares
+C           this file from others formats (PDB,GROMOS,CHARMM...)
+C         - If you give a value to RE of 0.00000 this atom will not 
+C           participate at all in the calculation.
+C         - If you give a negative value to RE this atom will have a
+C           GHOST sphere. Sometimes we are interested only in computing
+C           the surface of part of a molecule, but taking into account 
+C           the presence of the rest of the molecule. Thus, those atoms
+C           that belong to the part of the molecule, which interests us,
+C           will have positive RE and the rest of the atoms will have 
+C           their proper radii but negative. 
+C         - We are developing a set of programs to analyze the output of
+C           GEPOL that makes use of the variable LABEL with a specific 
+C           format and information. If you are interested in using these
+C           programs the format and information of LABEL should be the
+C           following:
+C            (I8,1x,A4,I7,1x,A4,I3,1x,A4)
+C            IAT  Atom number(order)
+C            ATN  Atom name
+C            IRE  Residue number(order)
+C            REN  Residue name
+C            ISE  Molecule number
+C            SEN  Molecule name
+C                     
+C
+C*** Output files
+C  - The general output is connected to the fortran unit FOR006
+C
+C  - Information about the spheres
+C    -----------------------------
+C    The name of this file is given after the keyword SPHF=. It contains
+C    information about every sphere.
+C
+C     -- TITLE (A80)
+C          The same lines that were read in the coordinates file.
+C 
+C     -- NATOM (I8)
+C        Number of atoms
+C     
+C     -- One record by atom or sphere (4F10.5,A33,F10.5)
+C        The Variables in each record are:
+C      
+C           XE        Coordinate X of the atom(center).
+C           YE        Coordinate Y of the atom.
+C           ZE        Coordinate Z of the atom.
+C           RE        Radius of the sphere centred on the atom.
+C           LABEL     Atom number, atom name, residue number... 
+C           AE        Surface Area of this atom or sphere
+C    
+C     OBSERVATIONS!!
+C       - If you have used REDUC you will get only information about the 
+C         original spheres.
+C
+C  -  Information about the tesserae forming the surface.
+C    ---------------------------------------------------
+C    The name of this file is given after the keyword VECF=. It contains
+C    the coordinates of the center of each tesserae, the vectors 
+C    perpendicular to the surface at this point, the area of each tesserae.
+C    It is written in binary format. The records have the following
+C    information:
+C      Record 1.     LT      (Integer*4) is the number of title record
+C      Next LT rec.  TITLE   (charac.*80) title
+C      Rec. LT+2     NP      (Integer*4) Number of tesserae or points.
+C      Next NP rec.          (3integer*4,7real*4) each record has the 
+C                            following variables:
+C
+C                    ITO  each sphere can have up to 60 tesserae, ITO gives
+C                         the order number of this tesserae among the 60.
+C                    ISO  gives the sphere number where the point lies.
+C                    ISA  gives the sphere number assigned to this point
+C                    XP   coordinate x of the point(center of the tesserae)
+C                    YP   coordinate y of the point
+C                    ZP   coordinate z of the point
+C                    AP   area of the tesserae
+C                    XVEC component X of the vector
+C                    YVEC component Y of the vector
+C                    ZVEC component Z of the vector
+C
+C*** UNITS
+C    The units of the area and volume will depend on the units of your
+C    coordinates. Remember that XE,YE,ZE,RE,RSOL and RMIN should have 
+C    the same units. Thus if you use Angstroms the area will appear 
+C    in Angstroms**2 and the volume in Angstrom**3
+C
+C*** Other information
+C    This information may be useful if you want to add something to the
+C    program. 
+C    MC = Maximum number of Centers (atoms, spheres)
+C    MV = Maximum number of Vectors (points/tesserae)
+C    IUSE(I) indicates the type of the center I
+C          IUSE=1 Initial center with radius=0  (Set in Sub. READCOOR) 
+C          IUSE=2 Sphere engulfed by another    (Set in Sub. CREA and BULK)
+C          IUSE=3 Ghost sphere                  (Set in Sub. READCOOR)
+C          IUSE=4 Sphere with final area 0      (Set in Sub. MZERO5  )
+C          IUSE=5 Semi ghost sphere             (Set in Sub. SHELL   )
+C          IUSE=6 Real sphere                   (Set in Sub. READCOOR)
+C***Problems
+C   If you have any problems or suggestions, please do not hesitate to 
+C   contact us.
+C***************************************************************************

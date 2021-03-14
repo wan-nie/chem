@@ -1,0 +1,53 @@
+ =============================
+ ====  GEPOL93 Version 8  ====
+ =============================
+
+* Calculation of the Solvent-Excluding Surface                                   
+* In this example we will use the coordinates given in set1.xyzr                 
+
+ The Solvent-Excluding Surface is calculated
+ -------------------------------------------
+ NDIV                                 =   3
+ Radius of the solvent         (RSOL) =   1.40000
+ Minimum Radius for new sphere (RMIN) =   0.50000
+ Overlapping factor            (OFAC) =   0.80000
+
+ The coordinates will be read from file
+ SET1.XYZR                                                                       
+
+ The file with the sphere information is
+ TEST5.SPH                                                                       
+
+
+ Title found in coordinate file
+ -------------------------------
+* SET1.XYZR                                                                     
+* This is a coordinate file to be used by GEPOL93                               
+* In this example we will not center spheres on the hydrogen atoms (R=0.00)     
+
+ About initial set of coordinates
+ --------------------------------
+ Number of coord. without sphere =      10
+ Number of spheres               =      37
+ Number of TOTAL coord.          =      47
+
+ About final set of coordinates
+ ------------------------------
+ Number of INITIAL coordinates               47
+ Number of NEW     coordinates              145
+ Number of TOTAL   coordinates              192
+
+
+
+ ----------------- RESULTS -----------------
+ -------------------------------------------
+
+ *******************************************
+ *******************************************
+ ** Area             =          459.800   **
+ ** Volume           =          509.335   **
+ ** Number of Points =         1665       **
+ *******************************************
+ *******************************************
+ Printing Information of Spheres in file:
+ TEST5.SPH                                                                       

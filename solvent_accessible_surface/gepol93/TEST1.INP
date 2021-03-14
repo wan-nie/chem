@@ -1,0 +1,4 @@
+TITL= Calculation of the van der waals surface
+TITL= In this example we will use the coordinates given in set1.xyzr 
+COOF=SET1.XYZR
+SPHF=TEST1.SPH

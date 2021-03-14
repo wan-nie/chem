@@ -1,0 +1,9 @@
+TITL= Calculation of the Solvent-Excluding Surface
+TITL= In this example we will use the coordinates given in set1.xyzr 
+TITL= using ASSG1 and REDUC
+ESURF
+ASSG1
+REDUC
+COOF=SET1.XYZR
+SPHF=TEST7.SPH
+VECF=TEST7.VEC

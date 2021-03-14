@@ -1,0 +1,65 @@
+ =============================
+ ====  GEPOL93 Version 8  ====
+ =============================
+
+* Calculation of the Solvent-Excluding Surface.                                  
+* In this example we will use the coordinates given in set2.xyzr                 
+* using ASSG1 and REDUC                                                          
+
+ The Solvent-Excluding Surface is calculated
+ -------------------------------------------
+ NDIV                                 =   3
+ Radius of the solvent         (RSOL) =   1.40000
+ Minimum Radius for new sphere (RMIN) =   0.50000
+ Overlapping factor            (OFAC) =   0.80000
+
+ The coordinates will be read from file
+ SET2.XYZR                                                                       
+
+ The new spheres will be assigned to the initials using ASSG1
+ The file with the sphere information is
+ TEST8.SPH                                                                       
+
+ The file with the Vectors is
+ TEST8.VEC                                                                       
+ DVEC =   1.00000  then:
+ The module of the vectors is =   1.00000
+ The vectors are pointing outward
+
+
+ Title found in coordinate file
+ -------------------------------
+* SET2.XYZR                                                                     
+* This is a coordinate file to be used by GEPOL93                               
+* In this example we will not center spheres on the hydrogen atoms (R=0.00)     
+* This is an example to illustrate the use of ghost spheres (negative radii)    
+* Only the surface of LEU 4 will be calculated                                  
+
+ About initial set of coordinates
+ --------------------------------
+ Number of coord. without sphere =      10
+ Number of ghost spheres         =      29
+ Number of spheres               =       8
+ Number of TOTAL coord.          =      47
+
+ About final set of coordinates
+ ------------------------------
+ Number of INITIAL coordinates               47
+ Number of NEW     coordinates              131
+ Number of TOTAL   coordinates              178
+
+
+
+ ----------------- RESULTS -----------------
+ -------------------------------------------
+
+ *******************************************
+ *******************************************
+ ** Area             =          108.119   **
+ ** Number of Points =          419       **
+ *******************************************
+ *******************************************
+ Printing Information of Spheres in file:
+ TEST8.SPH                                                                       
+ Printing vectors in file:
+ TEST8.VEC                                                                       

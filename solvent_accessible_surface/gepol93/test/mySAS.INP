@@ -1,0 +1,9 @@
+TITL= Calculation of the Accessible surface
+TITL= mySAS
+ASURF
+RSOL=1.4
+NDIV=5
+COOF=mySAS.XYZR
+SPHF=mySAS.SPH
+
+

@@ -1,0 +1,15 @@
+TITL= Calculation of the Solvent-Excluding Surface
+TITL= In this example we will use the coordinates given in set1.xyzr 
+TITL= Same calculation as TEST5, but without use defaults ( parameters are
+TITL= explicitly included)
+
+ESURF
+
+NDIV= 3
+RSOL= 1.4
+OFAC= 0.8
+RMIN= 0.50
+
+COOF=SET1.XYZR
+SPHF=TEST6.SPH
+

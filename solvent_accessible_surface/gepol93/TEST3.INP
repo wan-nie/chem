@@ -1,0 +1,5 @@
+TITL= Calculation of the Accessible surface
+TITL= In this example we will use the coordinates given in set1.xyzr 
+ASURF
+COOF=SET1.XYZR
+SPHF=TEST3.SPH

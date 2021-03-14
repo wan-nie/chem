@@ -1,0 +1,46 @@
+ =============================
+ ====  GEPOL93 Version 8  ====
+ =============================
+
+* Calculation of the Accessible surface                                          
+* In this example we will use the coordinates given in set2.xyzr                 
+
+ The Accessible Surface is calculated
+ ------------------------------------
+ NDIV                                  =   3
+ The radius of the solvent(RSOL) is    =   1.40000
+
+ The coordinates will be read from file
+ SET2.XYZR                                                                       
+
+ The file with the sphere information is
+ TEST4.SPH                                                                       
+
+
+ Title found in coordinate file
+ -------------------------------
+* SET2.XYZR                                                                     
+* This is a coordinate file to be used by GEPOL93                               
+* In this example we will not center spheres on the hydrogen atoms (R=0.00)     
+* This is an example to illustrate the use of ghost spheres (negative radii)    
+* Only the surface of LEU 4 will be calculated                                  
+
+ About initial set of coordinates
+ --------------------------------
+ Number of coord. without sphere =      10
+ Number of ghost spheres         =      29
+ Number of spheres               =       8
+ Number of TOTAL coord.          =      47
+
+
+ ----------------- RESULTS -----------------
+ -------------------------------------------
+
+ *******************************************
+ *******************************************
+ ** Area             =          162.242   **
+ ** Number of Points =          110       **
+ *******************************************
+ *******************************************
+ Printing Information of Spheres in file:
+ TEST4.SPH                                                                       
