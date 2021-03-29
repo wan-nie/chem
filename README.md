@@ -16,4 +16,7 @@
 
 * **getCoordinates_ADF.py**
   * 运行后会得到coordinates_ADF.xyz文件 
+  
+## solvent_accessible_surface
+* 由[gepol93](http://server.ccl.net/cca/software/SOURCES/FORTRAN/molecular_surface/gepol93/index.shtml)
 
