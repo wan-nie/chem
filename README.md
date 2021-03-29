@@ -20,3 +20,5 @@
 ## solvent_accessible_surface
 * 由[PASCUAL-AHUIR]( https://doi.org/10.1002/jcc.540151009)等人开发的[gepol93](http://server.ccl.net/cca/software/SOURCES/FORTRAN/molecular_surface/gepol93/index.shtml)
 
+## dmol3
+*用于[DMol3](http://molscience.com/software/DMol3)的outmol文件能量统计和坐标生成的[python](https://www.python.org/)脚本*
