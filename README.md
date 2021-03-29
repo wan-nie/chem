@@ -18,5 +18,5 @@
   * 运行后会得到coordinates_ADF.xyz文件 
   
 ## solvent_accessible_surface
-* 由[gepol93](http://server.ccl.net/cca/software/SOURCES/FORTRAN/molecular_surface/gepol93/index.shtml)
+* 由[PASCUAL-AHUIR]( https://doi.org/10.1002/jcc.540151009)等人开发的[gepol93](http://server.ccl.net/cca/software/SOURCES/FORTRAN/molecular_surface/gepol93/index.shtml)
 
