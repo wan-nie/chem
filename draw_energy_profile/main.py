@@ -116,7 +116,7 @@ def draw(annotate=True):
             draw_one(x_observed, y_observed, x, y, i, ax, annotate)
 
     plt.axis('off')
-    plt.savefig('profile.svg', dpi=DrawFormat.dpi, transparent=True,
+    plt.savefig('profile.png', dpi=DrawFormat.dpi, transparent=True,
                 bbox_inches='tight', pad_inches=0)
     plt.show()
 
