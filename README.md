@@ -24,8 +24,8 @@
 *用于[DMol3](http://molscience.com/software/DMol3)的outmol文件能量统计和坐标生成的[python](https://www.python.org/)脚本*
 
 ## draw_energy_profile
-*可以根据反应中各个物质的坐标（index，energy）绘制连续的曲线*
+*可以根据反应中各个物质的坐标（index，energy）绘制连续的能量曲线*
 * 运行前将数据保存为data.csv
-* 每一列为一个路线，主路线放到第一列。
-* 辅助路线列只添加希望画出的能量值，如果有空缺则在该index添加'continue'
-* 具体的例子参见`./draw_energy_profile/data.csv`和得到的`profile.png`
+ * 每一列为一个路线，主路线放到第一列。
+ * 辅助路线列只添加希望画出的能量值，如果有空缺则在该index添加'continue'
+ * 具体的例子参见`./draw_energy_profile/data.csv`和得到的`profile.png`
