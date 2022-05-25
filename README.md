@@ -29,6 +29,4 @@
    * 每一列为一个路线，主路线放到第一列。
    * 辅助路线列只添加希望画出的能量值。如果希望画出的能量值中相对主路线的坐标有空缺则在该位置填入'continue'。
    * 具体的例子参见`./draw_energy_profile/data.csv`和得到的`profile.png`
-\begin{equation}
-A
-\end{equation}
+
